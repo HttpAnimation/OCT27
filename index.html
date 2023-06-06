@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>Countdown Timer</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -21,24 +22,12 @@
       font-size: 48px;
       margin-bottom: 16px;
     }
-
-    .dark-mode {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: inline-block;
-      padding: 10px;
-      background-color: #000000;
-      color: #ffffff;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Countdown Timer</h1>
     <div class="timer" id="timer"></div>
-    <button class="dark-mode" id="darkModeBtn">Toggle Dark Mode</button>
   </div>
 
   <script>
@@ -61,17 +50,10 @@
         ":" +
         ("0" + minutes).slice(-2) +
         ":" +
-        ("0" + seconds).slice(-2) +
-        "";
+        ("0" + seconds).slice(-2);
     }
 
-    function toggleDarkMode() {
-      var body = document.body;
-      body.classList.toggle("dark-mode");
-    }
-
-    var darkModeBtn = document.getElementById("darkModeBtn");
-    darkModeBtn.addEventListener("click", toggleDarkMode);
+    document.body.classList.add("dark-mode");
 
     setInterval(updateCountdown, 1000);
   </script>
