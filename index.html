@@ -22,15 +22,36 @@
       font-size: 48px;
       margin-bottom: 16px;
     }
+
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Countdown Timer</h1>
     <div class="timer" id="timer"></div>
+    <img src="MV5BNWI3ZmY4NmItMGQ4My00ODJlLWJlNTktYjk2NzRkODU3YTNlXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg" id="flashImg" class="hidden" alt="Flash Image">
+    <p id="flashText" class="hidden">The show must go on and the FNAF movie is out!</p>
   </div>
 
   <script>
+    var flashSpeed = 500; // Speed of flash in milliseconds
+
+    function flashImageAndText() {
+      var flashImg = document.getElementById("flashImg");
+      var flashText = document.getElementById("flashText");
+
+      flashImg.classList.remove("hidden");
+      flashText.classList.remove("hidden");
+
+      setInterval(function() {
+        flashImg.classList.toggle("hidden");
+        flashText.classList.toggle("hidden");
+      }, flashSpeed);
+    }
+
     function updateCountdown() {
       var countdownDate = new Date("October 27, 2023").getTime();
       var now = new Date().getTime();
@@ -42,6 +63,12 @@
       );
       var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+      if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+        clearInterval(countdownInterval);
+        flashImageAndText();
+        return;
+      }
 
       document.getElementById("timer").innerHTML =
         ("0" + days).slice(-2) +
@@ -55,7 +82,14 @@
 
     document.body.classList.add("dark-mode");
 
-    setInterval(updateCountdown, 1000);
+    var countdownInterval = setInterval(updateCountdown, 1000);
+
+    document.addEventListener("keydown", function(event) {
+      if (event.keyCode === 187) { // Check for equals (=) key press
+        clearInterval(countdownInterval);
+        flashImageAndText();
+      }
+    });
   </script>
 </body>
 </html>
