@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #202020;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .timer {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .dark-mode {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: inline-block;
+      padding: 10px;
+      background-color: #000000;
+      color: #ffffff;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Countdown Timer</h1>
+    <div class="timer" id="timer"></div>
+    <button class="dark-mode" id="darkModeBtn">Toggle Dark Mode</button>
+  </div>
+
+  <script>
+    function updateCountdown() {
+      var countdownDate = new Date("October 27, 2023").getTime();
+      var now = new Date().getTime();
+      var timeRemaining = countdownDate - now;
+
+      var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      var hours = Math.floor(
+        (timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+      document.getElementById("timer").innerHTML =
+        ("0" + days).slice(-2) +
+        ":" +
+        ("0" + hours).slice(-2) +
+        ":" +
+        ("0" + minutes).slice(-2) +
+        ":" +
+        ("0" + seconds).slice(-2) +
+        " Days:Hours:Minutes:Seconds";
+    }
+
+    function toggleDarkMode() {
+      var body = document.body;
+      body.classList.toggle("dark-mode");
+    }
+
+    var darkModeBtn = document.getElementById("darkModeBtn");
+    darkModeBtn.addEventListener("click", toggleDarkMode);
+
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
